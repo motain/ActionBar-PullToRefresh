@@ -122,10 +122,13 @@ public class PullToRefreshAttacher {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                if (decorView.getWindowToken() != null && mHeaderView != null && mActivity != null) {
-                    // The Decor View has a Window Token, so we can add the HeaderView!
-                    addHeaderViewToActivity(mHeaderView, mActivity);
-                } else {
+                if (decorView.getWindowToken() != null) {
+                    if (mHeaderView != null && mActivity != null) {
+                        // The Decor View has a Window Token, so we can add the HeaderView!
+                        addHeaderViewToActivity(mHeaderView, mActivity);
+                    }
+                }
+                else {
                     // The Decor View doesn't have a Window Token yet, post ourselves again...
                     mHandler.post(this);
                 }
@@ -225,6 +228,8 @@ public class PullToRefreshAttacher {
         // Lets clear out all of our internal state
         clearRefreshableViews();
 
+        mHandler.removeCallbacksAndMessages(null);
+        
         mActivity = null;
         mHeaderView = null;
         mHeaderViewListener = null;
