@@ -1,4 +1,5 @@
 apply plugin: 'android-library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
@@ -13,4 +14,16 @@ android {
     }
 }
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+// apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: project.deploymentUrl) {
+               authentication(userName: project.deploymentUsername, password: project.deploymentPassword)
+            }
+
+            pom.artifactId = 'library'
+        }
+    }
+}
