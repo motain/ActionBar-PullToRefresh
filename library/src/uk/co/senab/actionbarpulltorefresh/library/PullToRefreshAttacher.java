@@ -226,8 +226,6 @@ public class PullToRefreshAttacher {
         // Lets clear out all of our internal state
         clearRefreshableViews();
 
-        mHandler.removeCallbacksAndMessages(null);
-        
         mActivity = null;
         mHeaderView = null;
         mHeaderViewListener = null;
